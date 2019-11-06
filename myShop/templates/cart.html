@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+{% if total > 0 %}
+<a href="{{ url_for('checkout') }}" target="_self">
+<div class="cart-checkout">Proceed to Checkout</div>
+</a>
+{% endif %}
+
+<div class="cart-display">
+{% if total > 0 %}
+
+	<table class="cart-table">
+
+		<tr style="font-size: 20px;">
+			<th>Item</th>
+			<th>Price</th>
+			<th>Quantity</th>
+			<th>Total</th>
+		</tr>
+	
+	{% for key, value in display_cart.items() %}
+	
+	<tr class="cart-items">
+		
+		<td>
+		<div class="citem-name">
+			<a href="{{url_for('item', item_id=key|int)}}">
+				{{ value["item_name"] }}
+			</a> 
+		</div>
+		</td>
+		
+		<td>
+		<div class="citem-price">
+		&#163;&nbsp;{{ value["price"] }} 
+		</div>
+		</td>
+		
+		<td>
+		<div class="citem-quant">
+			<a href="{{url_for('delete_item', item_id=key|int)}}">
+		
+			<input class="delete_item" type="submit" value=&#8722;>
+			
+			</a>
+		<span class="c-quantity">
+			
+			 {{ value["quantity"] }}  
+			
+		</span>
+			 <a href="{{url_for('add_to_cart', item_id=key|int)}}">
+
+			 <input class="delete_item" type="submit" value="+">
+
+			 </a>
+		</div>
+		</td>
+
+		<td>
+		<div class="c-total">
+			&#163;&nbsp;{{ value["quantity"] * value["price"] }} 
+		</div>
+		</td>
+
+		<td>
+			<form action="{{ url_for('delete_item', item_id=key|int) }}" method="POST">
+			<div class="del-item">
+				<input class="delete_item" type="submit" value="Remove Item">
+			</div>
+			</form>
+		</td>
+	</tr>
+	{% endfor %}
+	
+	<tr>
+		<th class="total-quant" colspan=3>
+		Subtotal 
+		(<span style="color: red; font-weight: bold;">{{total_quantity }}
+			{% if total_quantity > 1 %} items{% else %} item{% endif %}</span>)&nbsp;&nbsp;
+		</th>
+		<td>
+		<div class="total-price">
+		&#163;&nbsp;{{ total }}
+		</div>
+	</td>
+	</tr>	
+	
+	</table>
+{% else %}
+<div class="emptyBask">Your Basket is Empty</div>
+
+{% endif %}
+</div>
+
+
+{% endblock content %}

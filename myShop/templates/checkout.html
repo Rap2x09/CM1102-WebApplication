@@ -1,0 +1,247 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<script>
+
+function show_field_hints(idname) {
+	document.getElementById(idname).style.display='block';
+}
+
+function hide_field_hints(idname) {
+	document.getElementById(idname).style.display='none';
+}
+</script>
+
+<div class="loginRegWrapper">
+<div class="checkOutForm">
+<div class="billing-details">
+	
+	<form method="POST" action="">
+	{{ form.hidden_tag() }}
+	
+	<div class="head1">Billing Details</div>
+
+	<div id="cname" style="display: none; margin-bottom: 2px;">Your first name e.g. Allan</div>
+	<div class="cfirstName_field">
+		{{form.cfirst_name(onfocus="show_field_hints('cname')", onblur="hide_field_hints('cname')") }}
+
+	
+	<div>
+		{% for error in form.cfirst_name.errors %}
+		<span style="color: red;">
+			[{{ error }}]
+		</span>
+		{% endfor %}
+	</div>
+	</div>
+
+<div id="lname" style="display: none; margin-bottom: 2px;">
+	Your last name e.g. Jones
+</div>
+	<div class="clastName_field">
+		{{ form.clast_name(onfocus="show_field_hints('lname')", onblur="hide_field_hints('lname')") }}
+	
+	<div>
+		{% for error in form.clast_name.errors %}
+		<span style="color: red;">
+			[{{ error }}]
+		</span>
+		{% endfor %}
+	</div>
+	</div>
+
+<div id="cemail" style="display: none; margin-bottom: 2px;">
+	Email e.g. yourname@address.com
+</div>
+	<div class="cemailReg_field">
+		{{ form.cemail(onfocus="show_field_hints('cemail')", onblur="hide_field_hints('cemail')") }}
+	
+	<div>	
+		{% for error in form.cemail.errors %}
+		<span style="color: red;">
+			[{{ error }}]
+		</span>
+		{% endfor %}
+	</div>
+	</div>
+
+
+<div id="country" style="display: none; margin-bottom: 2px;">
+	Country
+</div>
+	<div class="country_field">
+		{{ form.country(onfocus="show_field_hints('country')", onblur="hide_field_hints('country')") }}
+	
+	</div>
+	
+<div id="address1" style="display: none; margin-bottom: 2px;">
+	Address line 1 e.g. 10 Downing Street
+</div>	
+	<div class="address1_field">
+		{{ form.address_line1(onfocus="show_field_hints('address1')", onblur="hide_field_hints('address1')") }}
+	
+	<div>	
+		{% for error in form.address_line1.errors %}
+		<span style="color: red;">
+			[{{ error }}]
+		</span>
+		{% endfor %}
+	</div>
+	</div>
+
+<div id="address2" style="display: none; margin-bottom: 2px;">
+	Address line 2 e.g. Westminster
+</div>	
+	<div class="address2_field">
+		{{ form.address_line2(onfocus="show_field_hints('address2')", onblur="hide_field_hints('address2')") }}
+	
+	<div>
+		{% for error in form.address_line2.errors %}
+		<span style="color: red;">
+			[{{ error }}]
+		</span>
+		{% endfor %}
+	</div>
+	</div>
+	
+<div id="town" style="display: none; margin-bottom: 2px;">
+	Town/City e.g. Cardiff
+</div>		
+	<div class="town_field">
+		{{ form.town(onfocus="show_field_hints('town')", onblur="hide_field_hints('town')") }}
+	
+	<div>	
+		{% for error in form.town.errors %}
+		
+		<span style="color: red;">
+			[{{ error }}]
+		</span>
+		{% endfor %}
+	</div>
+	</div>
+
+<div id="postcode" style="display: none; margin-bottom: 2px;">
+	Postcode e.g. AA01 10ZZ
+</div>		
+	<div class="post_code_field">
+		{{ form.post_code(onfocus="show_field_hints('postcode')", onblur="hide_field_hints('postcode')") }}
+	
+	<div>	
+		{% for error in form.post_code.errors %}
+		
+		<span style="color: red;">
+			[{{ error }}]
+		</span>
+		{% endfor %}
+	</div>
+	</div>
+</div>
+
+<div class="card-details">
+	<div class="head2">Card Details</div>
+
+<div id="noc" style="display: none; margin-bottom: 2px;">
+	Name on Card e.g. MR  A JONES
+</div>	
+	<div class="name_on_card_field">
+		{{ form.name_on_card(onfocus="show_field_hints('noc')", onblur="hide_field_hints('noc')") }}
+	
+	<div>	
+		{% for error in form.name_on_card.errors %}
+		
+		<span style="color: red;">
+			[{{ error }}]
+		</span>
+		{% endfor %}
+	</div>
+	</div>
+
+<div id="cnumber" style="display: none; margin-bottom: 2px;">
+	Card No. e.g. 0123-4567-8910-1234
+</div>	
+	<div class="card_number_field">
+		{{ form.card_number(onfocus="show_field_hints('cnumber')", onblur="hide_field_hints('cnumber')") }}
+	
+	<div>	
+		{% for error in form.card_number.errors %}
+		
+		<span style="color: red;">
+			[{{ error }}]
+		</span>
+		{% endfor %}
+	</div>
+	</div>
+
+<div class=exp_container>
+		<div id="exp_date" style="display: none; margin-bottom: 2px;">Expiry Date MM/YY eg. 12/19</div>
+		<div id="cvc_code" style="display: none; margin-bottom: 2px;">last 3 or 4 digits at the back of your card</div>
+
+		{{ form.exp_month(onfocus="show_field_hints('exp_date')", onblur="hide_field_hints('exp_date')") }}
+
+		{{ form.exp_year(onfocus="show_field_hints('exp_date')", onblur="hide_field_hints('exp_date')") }}
+	
+		{{ form.security_code(onfocus="show_field_hints('cvc_code')", onblur="hide_field_hints('cvc_code')") }}
+
+</div>
+
+<div>
+	
+	{% for error in form.exp_month.errors %}
+	
+	<span style="color: red;">
+		[{{ error }} for MM]
+	</span>
+	{% endfor %}
+</div>
+
+<div>
+	{% for error in form.exp_year.errors %}
+	
+	<span style="color: red;">
+		[{{ error }} for YY]
+	</span>
+	{% endfor %}
+</div>
+
+<div>
+	{% for error in form.security_code.errors %}
+	
+	<span style="color: red;">
+		[{{ error }}]
+	</span>
+	{% endfor %}
+
+</div>
+
+<div class="head3">
+
+
+<table style="border-bottom: 1px solid; width: 100%; border-top: 1px solid; padding: 8px 0px;">
+<tr >
+	<td>Subtotal ({{total_quantity}}{% if total_quantity == 1 %} item{% else %} items{% endif %})</td>
+	<td> 
+	£ {{ subtotal }}</td>
+</tr>
+
+<tr>
+	<td>Shipping & Handling</td>
+	<td>£ {{'%0.2f'|format(delivery) }} </td>
+</tr>
+</table>
+
+<table style="width: 100%; font-size: 22px;">
+<tr>
+	<td style="font-weight: bolder;">Total to Pay</td>
+	<td align="center" style="font-weight: bolder;">£ {{ '%0.2f'|format(subtotal|float + delivery) }}</td>
+</tr>
+</table>
+</div>
+	<div class="submit-checkout">
+		{{ form.checkout }}
+	</div>
+</div>	
+	</form>
+</div>
+</div>
+{% endblock content %}

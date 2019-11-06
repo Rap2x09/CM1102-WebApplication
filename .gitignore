@@ -1,0 +1,9 @@
+.myShop
+__pycache__/
+venv/
+.project
+*.pyc
+*.pyo
+*~
+X*.py
+*.pydevproject

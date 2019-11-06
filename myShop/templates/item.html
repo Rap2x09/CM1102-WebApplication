@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="item-container">
+<div class="item-info">
+
+<div class="item-img">
+	<img src="{{url_for('static', filename='img/' + item.image_file)}}">
+</div>
+<table height="320px" style="border-collapse: none;">
+	<tr>
+		<td valign="top" style="padding-top: 40px; padding-left: 0px; text-align: left; font-size: 20px; width: 350px;">
+		{{ item.description }}
+		</td>
+		
+		<td class="item-price">
+			<span style="font-size: 35px; text-decoration: underline;">
+			&#163;&nbsp;{{ item.price }}</span><br><br>
+		
+		<a href="/add_to_cart/{{ item.id }}">
+		<div class="add_cart">
+			Add to Cart
+		</div>
+		</a>
+		<br>
+	{% if current_user.is_authenticated %}	
+		<a href="/add_to_wishlist/{{ item.id }}">
+		<div class="wishlist">
+			Add to Wishlist
+		</div>
+		</a>
+	{% endif %}	
+		</td>
+
+	</tr>
+	
+	<tr>
+
+		<td align="left">
+		<div class="more-info">
+		<a href="{{ item.info_website }}" target="_blank">
+			Click here for more info...
+		</a>
+		</div>
+		</td>
+
+		
+		<td class="item-stocks" valign="top">
+			Stocks Remaining: {{ item.stock_level }}
+		</td>
+
+
+
+	</tr>
+	
+</table>
+
+</div>
+</div>
+
+{% endblock content %}

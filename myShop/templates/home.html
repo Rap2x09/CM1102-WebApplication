@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="sortby">
+<form method="POST" action="{{url_for('home')}}">
+<select name="sort" onchange="this.form.submit()">
+	<option value="" disable selected hidden="">Sort By:</option>
+	<option value="nameAZ">Name - A to Z</option>
+	<option value="nameZA">Name - Z to A</option>
+	<option value="priceAsc">Price - ascending</option>
+	<option value="priceDesc">Price - descending</option>
+</select>
+</form>
+
+</div>
+
+<div class="item-container">
+<div class="product-list">
+
+{% for item in items %}
+
+<table class="product-table">
+	<tr>
+		<td rowspan="3" class="table-img">
+		<a href="{{url_for('item', item_id=item.id)}}">
+			<img src="{{ url_for('static', filename='img/' + item.image_file)}}">
+		</a>
+		</td>
+		
+		<td class="item-name">
+		<a href="{{url_for('item', item_id=item.id)}}">
+			{{ item.item_name }}
+		</a>
+		</td>
+		
+		<td class="item-price" rowspan="2">
+			&#163;&nbsp;{{ item.price }}<br><br>
+		
+		<a href="/add_to_cart/{{ item.id }}">
+		<div class="add_cart">
+			Add to Cart
+		</div>
+		</a>
+		
+		</td>
+
+	</tr>
+	
+	<tr>
+		<td class="item-descr">
+		{{ item.description }}
+		</td>
+			
+	</tr>
+	<tr>
+		<td class="item-stocks">
+			Stocks Remaining: {{ item.stock_level }}
+		</td>
+	{% if current_user.is_authenticated %}	
+		<td align="center" class="wishy">
+		<a href="/add_to_wishlist/{{ item.id }}">
+		<div class="wishlist">
+			Add to Wishlist
+		</div>
+		</a>
+		</td>
+	{% endif %}
+	</tr>
+
+
+
+</table>
+
+{% endfor %}
+
+</div>
+</div>
+
+{% endblock content %}

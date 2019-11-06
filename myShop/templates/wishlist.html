@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="item-container">
+<div class="wish-list">
+
+{% if (user_wish is none) or (wishlist|length == 0) %}
+
+<div class="emptyWish">Your Wishlist is Empty</div>
+
+{% else %}
+
+{% for item in wish_items %}
+<div class="wish-item">
+<table class="wish-table">
+
+<tr>
+<td align="left" width=200px class="witem-name"> 
+<a href="{{url_for('item', item_id=item.id)}}">
+{{ item.item_name }} 
+</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="{{url_for('item', item_id=item.id)}}">
+<img src="{{ url_for('static', filename='img/' + item.image_file)}}">
+</a>
+</td>
+</tr>
+
+<tr>
+<td align=center valign="top" height=20px; class="wishy">
+<a href="/add_to_cart/{{ item.id }}">
+<div class="add_wish">
+	Add to Cart
+</div>
+</a>
+</td>
+</tr>
+
+<tr>
+<td align=center valign="top" height=20px; class="wishy" style="padding-bottom: 10px;">
+<a href="/delete_wish_item/{{ item.id }}">
+<div class="add_wish">
+	Remove Item
+</div>
+</a>
+</td>
+</tr>
+
+</table>
+</div>
+{% endfor %}
+
+{% endif %}
+
+</div>
+</div>
+
+{% endblock content %}

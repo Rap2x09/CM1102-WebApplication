@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>My E-shop</title>
+<link href="{{ url_for('static', filename='mycss.css') }}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="wrapper">
+<div class="top">
+	<div class="logo">
+	<div class="logo1"><a href="{{ url_for('home') }}" target="_self" title="pohS yM | My Shop">
+	<img  src="{{ url_for('static', filename='img/logo.png') }}"></img></a>
+	</div>
+     <div class="search-container">
+      <form class="search" role="search" method="POST" action="{{url_for('search_result')}}">
+
+          <input name="search_item" type="text" class="search-box" placeholder="Search Item" minlength=4>
+	
+        <button type="submit" class="search-go">Go</button>
+      </form>
+     </div>
+     
+     <div class="login">
+     {% if current_user.is_authenticated %}
+     
+     Hello, {{ current_user.first_name[:15] }}
+     <br>
+      <a href=" {{ url_for('show_wishlist') }}" target="_self">
+     <div class="my-wishlist">
+
+     My Wishlist 
+     </div>
+     </a> 
+    <a href=" {{ url_for('logout') }}" target="_self">
+     <div class="logout">
+
+     Sign out  
+     </div>
+     </a> 
+     {% else %}
+     
+     <a href="{{ url_for('login') }}" target="_self">
+     LOGIN / REGISTER</a>
+     
+     {% endif %}
+     
+     </div>
+     </div>
+</div>
+<nav class="top-nav">
+	<ul class="menu">
+		<li class="{% if active == 'home' %}active{% endif %}"><a href="{{ url_for('home') }}" target="_self" title="Home">HOME</a></li>
+		<li class="{% if active == 'offers' %}active{% endif %}"><a href="{{ url_for('offers') }}" target="_self" title="Offers">OFFERS</a></li>
+		<li class="{% if active == 'about' %}active{% endif %}"><a href="{{ url_for('about') }}" target="_self" title="About Us">ABOUT US</a></li>
+		<li class="{% if active == 'contact_us' %}active{% endif %}"><a href="{{ url_for('contact_us') }}" target="_self" title="Contact Us">HELP</a></li>
+		<li class="cart" id="{% if active == 'cart' %}active{% endif %}"><a href="{{ url_for('cart_display') }}" target="_self" title="Your Shopping Cart">
+		CART&nbsp;&nbsp;&nbsp;<span style=color:yellow;> {{total_quantity}}</span></a></li>
+	</ul>
+</nav>
+
+</div>
+  <div class="flash-error">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="flashes">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+  </div>
+  
+<div class="title"> {{ title }} </div>
+<div class="content">
+
+
+<hr>
+
+{% block content %}
+
+{% endblock content %}
+
+
+  
+<div class="footer">
+	pohS yM | My Shop
+	<br>
+	123 Somewhere Retail Park, Downtown Road
+	<br>
+	Cardiff, Wales AA99 1ZZ<br>Contact Number: 01234 567890
+
+</div>
+
+</div>
+</body>
+</html>
